@@ -1,6 +1,8 @@
+use std::ops::Add;
+
 // TODO: implement the necessary traits to make the test compile and pass.
 //  You *can't* modify the test.
-
+#[derive(Clone,Copy,Debug)]
 pub struct WrappingU32 {
     value: u32,
 }
@@ -9,6 +11,25 @@ impl WrappingU32 {
     pub fn new(value: u32) -> Self {
         Self { value }
     }
+
+}
+
+impl PartialEq for WrappingU32 {
+    fn eq(&self, other: &Self) -> bool {
+        self.value == other.value
+    }
+}
+
+impl Add for WrappingU32 {
+    type Output = Self;
+    
+    fn add(self, rhs: Self) -> Self::Output {
+        Self {
+            value: self.value.wrapping_add(rhs.value)
+        }
+    }
+
+    
 }
 
 #[cfg(test)]
